@@ -80,23 +80,34 @@ function updateTimer() {
     timeLeft--; // Decrement time for Countdown Clock
     elapsedTime++; // Increment time for Timer
 
-    if (timeLeft <= 0) {
-      gameOver = true; // End the game when time runs out
+    if (timeLeft <= 0 && !gameOver) {
+      // Timer runs out
+      gameOver = true;
+      context.clearRect(0, 0, board.width, board.height); // Clear board
+      context.fillStyle = "green";
+      context.font = "48px courier";
+      context.textAlign = "center";
+      context.fillText("You Win!", board.width / 2, board.height / 2);
       clearInterval(timerInterval); // Stop the timer
     }
   }
 }
 
-function update () {
+
+function update() {
   requestAnimationFrame(update);
 
   if (gameOver) {
-    // Display "Game Over" message
     context.fillStyle = "red";
     context.font = "48px courier";
     context.textAlign = "center";
-    context.fillText("Game Over!!!!", board.width / 2, board.height / 2);
-    return;
+    
+    if (timeLeft > 0) {
+      // Display "Game Over!!!!" if the ship is hit before timer ends
+      context.fillText("Game Over!!!!", board.width / 2, board.height / 2);
+    }
+
+    return; // Exit the update loop
   }
 
   if (paused) {
@@ -107,6 +118,7 @@ function update () {
   context.clearRect(0, 0, board.width, board.height);
   context.drawImage(shipImg, ship.x, ship.y, ship.width, ship.height);
 
+  // Alien logic
   for (let i = 0; i < alienArray.length; i++) {
     let alien = alienArray[i];
     if (alien.alive) {
@@ -121,48 +133,54 @@ function update () {
         }
       }
       context.drawImage(alienImg, alien.x, alien.y, alien.width, alien.height);
-      
+
       if (alien.y >= ship.y) {
         gameOver = true;
       }
     }
   }
+
+  // Bullet logic
   for (let i = 0; i < bulletArray.length; i++) {
     let bullet = bulletArray[i];
     bullet.y += bulletVelocityY;
     context.fillStyle = "white";
     context.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
-    
+
     for (let j = 0; j < alienArray.length; j++) {
       let alien = alienArray[j];
       if (!bullet.used && alien.alive && detectCollision(bullet, alien)) {
         bullet.used = true;
         alien.alive = false;
-        alienCount --;
+        alienCount--;
         score += 1;
       }
     }
   }
 
+  // Remove used bullets
   while (bulletArray.length > 0 && (bulletArray[0].used || bulletArray[0].y < 0)) {
     bulletArray.shift();
   }
 
-  if (alienCount == 0) {
-    alienColumns = Math.min(alienColumns + 1, columns / 2 -2);
+  // Spawn new aliens if all are destroyed
+  if (alienCount === 0 && timeLeft > 0) {
+    alienColumns = Math.min(alienColumns + 1, columns / 2 - 2);
     alienRows = Math.min(alienRows + 1, rows - 4);
     alienVelocityX += 0.2;
     alienArray = [];
     bulletArray = [];
     createAliens();
   }
+
+  // Display score and timer
   context.fillStyle = "white";
   context.font = "16px courier";
-
-  // Display the Timer
-  context.fillText(`Time: ${elapsedTime}sec`, 5, 40);
-  context.fillText(score, 5, 20);
+  context.fillText(`Score: ${score}`, 5, 20);
+  context.fillText(`Time: ${elapsedTime} sec`, 5, 40);
 }
+
+
 
 function displayPauseMenu() {
   context.fillStyle = "rgba(0, 0, 0, 0.8)";
