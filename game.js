@@ -77,11 +77,10 @@ window.onload = function() {
 
 function updateTimer() {
   if (!paused && !gameOver) {
-    timeLeft--; // Decrement time for Countdown Clock
-    elapsedTime++; // Increment time for Timer
+    timeLeft--;
+    elapsedTime++;
 
     if (timeLeft <= 0 && !gameOver) {
-      // Timer runs out
       gameOver = true;
       context.clearRect(0, 0, board.width, board.height); // Clear board
       context.fillStyle = "green";
