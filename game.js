@@ -100,7 +100,7 @@ function update() {
     
     if (timeLeft > 0) {
       
-      context.fillText("GameOver! You lost!", board.width / 2, board.height / 2);
+      context.fillText("GameOver!Youlost!", board.width / 2, board.height / 2);
     }
 
     return; 
