@@ -84,7 +84,7 @@ function updateTimer() {
       // Timer runs out
       gameOver = true;
       context.clearRect(0, 0, board.width, board.height); // Clear board
-      context.fillStyle = "green";
+      context.fillStyle = "yellow";
       context.font = "48px courier";
       context.textAlign = "center";
       context.fillText("You Win!", board.width / 2, board.height / 2);
@@ -176,6 +176,8 @@ function update() {
   // Display score and timer
   context.fillStyle = "white";
   context.font = "16px courier";
+  context.textAlign = "left"; // Keep left alignment
+  context.textBaseline = "top";
   context.fillText(`Score: ${score}`, 5, 20);
   context.fillText(`Time: ${elapsedTime} sec`, 5, 40);
 }
@@ -188,12 +190,12 @@ function displayPauseMenu() {
 
   context.fillStyle = "white";
   context.font = "32px courier";
-  context.textAlign = "center";
+  context.textAlign = "center"; // Center align the text
 
   context.fillText("Pause Menu", board.width / 2, board.height / 2 - 40);
   
-  // Options
-  const options = ["Continue", "Restart"];
+  // Options - Now only one option: "Continue"
+  const options = ["Continue"];
   options.forEach((option, index) => {
     if (index === selectedOption) {
       context.fillStyle = "yellow"; // Highlight selected option
@@ -203,6 +205,7 @@ function displayPauseMenu() {
     context.fillText(option, board.width / 2, board.height / 2 + index * 40);
   });
 }
+
 document.addEventListener("keydown", (e) => {
   if (gameOver) return;
 
@@ -212,37 +215,19 @@ document.addEventListener("keydown", (e) => {
 
   if (paused) {
     if (e.code === "ArrowUp" || e.code === "KeyW") {
-      selectedOption = (selectedOption - 1 + 2) % 2; // Move up in menu
+      selectedOption = (selectedOption - 1 + 1) % 1; // Only one option
     }
     if (e.code === "ArrowDown" || e.code === "KeyS") {
-      selectedOption = (selectedOption + 1) % 2; // Move down in menu
+      selectedOption = (selectedOption + 1) % 1; // Only one option
     }
     if (e.code === "Enter") {
       if (selectedOption === 0) {
-        paused = false; // Continue
-      } else if (selectedOption === 1) {
-        restartGame(); // Restart
+        paused = false; // Continue the game
       }
     }
   }
 });
 
-function restartGame() {
-  paused = false;
-  gameOver = false;
-  score = 0;
-  alienCount = 0;
-  alienArray = [];
-  bulletArray = [];
-  createAliens();
-  ship.x = shipX;
-  ship.y = shipY;
-
-  timeLeft = 60; // Reset Countdown Clock
-  elapsedTime = 0; // Reset Timer
-  clearInterval(timerInterval); // Clear the previous interval
-  timerInterval = setInterval(updateTimer, 1000); // Restart the timer
-}
 
 function moveShip(e) {
   if (gameOver) {
@@ -295,4 +280,28 @@ function detectCollision(a, b) {
           a.x + a.width > b.x &&
           a.y < b.y + b.height &&
           a.y + a.height > b.y;
+}
+
+// Same code from your file
+function startGame() {
+  board = document.getElementById("board");
+  board.width = boardWidth;
+  board.height = boardHeight;
+  context = board.getContext("2d");
+
+  shipImg = new Image();
+  shipImg.src = "./ship.png";
+  shipImg.onload = function() {
+      context.drawImage(shipImg, ship.x, ship.y, ship.width, ship.height);
+  }
+
+  alienImg = new Image();
+  alienImg.src = "./alien-magenta.png";
+  createAliens();
+
+  requestAnimationFrame(update);
+  timerInterval = setInterval(updateTimer, 1000);
+
+  document.addEventListener("keydown", moveShip);
+  document.addEventListener("keyup", shoot);
 }
