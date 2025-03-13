@@ -7,65 +7,25 @@
     <link rel="stylesheet" href="game.css">
 </head>
 <body>
-    <h1>Welcome to Space Invaders!</h1>
+    <div class="container">
+        <h1>Welcome to Space Invaders!</h1>
+        <button id="startButton" class="start-btn">Start Game</button>
+        <button id="restartButton" class="restart-btn">Restart Game</button>
 
-    <button id="startButton" class="button">Start Game</button>
-    
-    <div id="restartButtonContainer" style="text-align: center; margin-top: 20px;">
-        <button id="restartButton" class="button" style="font-size: 14px; padding: 8px 12px; background-color: #ff2be6; color: black; border: 1px solid white; border-radius: 5px;">Restart Game</button>
-    </div>
-    
-    <div id="gameContainer">
-        <canvas id="board" style="display: none; background-color: black; margin: 0 auto; border: 4px solid #ff2be6;"></canvas>
-    </div>
-    
-    <div id="howToPlayModal" class="modal">
-        <div class="modal-content">
-            <span id="closeModal" class="close">&times;</span>
+        <canvas id="board"></canvas>
+
+        <div id="howToPlayModal" class="how-to-play">
             <h2>How to Play:</h2>
-            <p>
-                - Move your ship using the Left (←) and Right (→) arrow keys.<br>
-                - Press <strong>Space</strong> to shoot bullets at the aliens.<br>
-                - Press <strong>P</strong> to open the pause menu.<br>
-                - Press <strong>Enter</strong> to continue the game.<br>
-                - Restart the game by pressing the restart button.<br>
-                - Destroy all the aliens and survive 60 seconds!<br>
-            </p>
+            <p>- Move your ship using the Left (←) and Right (→) arrow keys.</p>
+            <p>- Press Space to shoot bullets at the aliens.</p>
+            <p>- Press P to open the pause menu.</p>
+            <p>- Press Enter to continue the game.</p>
+            <p>- Restart the game by pressing the restart button.</p>
+            <p>- Destroy all the aliens and survive 60 seconds!</p>
         </div>
     </div>
 
     <script src="game.js"></script>
-
-    <script>
-        const modal = document.getElementById("howToPlayModal");
-        const closeModal = document.getElementById("closeModal");
-
-        window.onload = function() {
-            modal.style.display = "block";
-        };
-
-        closeModal.addEventListener("click", function() {
-            modal.style.display = "none";
-        });
-
-        window.onclick = function(event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        };
-
-        document.getElementById("startButton").addEventListener("click", function() {
-            this.style.display = "none";  
-            document.getElementById("board").style.display = "block"; 
-            startGame();  
-        });
-
-        document.getElementById("restartButton").addEventListener("click", function () {
-            location.reload(); 
-        });
-
-        
-    </script>
 </body>
 </html>
 
