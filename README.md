@@ -1,4 +1,4 @@
-# Alien Invaders Game
+# Space Invaders Game
 
 Welcome to **Alien Invaders**, a simple yet exciting arcade-style game where you defend your ship from alien invaders! Test your skills, score points, and survive as long as you can.
 
@@ -11,14 +11,12 @@ Welcome to **Alien Invaders**, a simple yet exciting arcade-style game where you
    - **Move the Ship:** Use the `Left Arrow (←)` and `Right Arrow (→)` keys to move your ship left and right.
    - **Shoot Aliens:** Press the `Spacebar` to shoot bullets from your ship.
    - **Pause Menu:** Press the `P` key to open the Pause Menu.
-     - Use `Arrow Up (↑)` and `Arrow Down (↓)` to navigate the menu.
-     - Press `Enter` to select an option from the Pause Menu.
-       - `Continue:` Resume the game.
-       - `Restart:` Restart the game from the beginning.
+     - Press `Enter` to continue.
+
 
 3. **Objectives:**
    - Destroy as many alien invaders as possible to score points.
-   - Survive for as long as you can without getting hit by aliens.
+   - Survive for 60 seconds.
    - Try to clear all the alien waves before the timer runs out!
 
 ## Features
@@ -38,3 +36,4 @@ Welcome to **Alien Invaders**, a simple yet exciting arcade-style game where you
 
 1. Download the game files or clone this repository:
 
+# kristimarkus1.github.io
