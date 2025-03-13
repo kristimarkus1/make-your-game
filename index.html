@@ -1,15 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Space Invaders</title>
-  <link rel="stylesheet" href="game.css">
-  <script src="game.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alien Invaders</title>
+    <link rel="stylesheet" href="game.css">
 </head>
 <body>
-  <h1>Welcome to Space Invaders!</h1>
-  <canvas id="board"></canvas>
-  
+    <h1>Welcome to Space Invaders!</h1>
+
+    <!-- Start Game Button -->
+    <button id="startButton">Start Game</button>
+
+    <div id="gameContainer">
+        <canvas id="board" style="display: none; background-color: black; margin: 0 auto; border: 4px solid #ff2be6;"></canvas>
+    </div>
+
+    <!-- Restart Button below the game canvas -->
+    <div id="restartButtonContainer" style="text-align: center; margin-top: 20px;">
+        <button id="restartButton" style="font-size: 16px; padding: 10px 20px; background-color: #ff2be6; color: white; border: none; border-radius: 5px;">Restart Game</button>
+    </div>
+
+    <!-- How to Play Modal -->
+    <div id="howToPlayModal" class="modal">
+        <div class="modal-content">
+            <span id="closeModal" class="close">&times;</span>
+            <h2>How to Play:</h2>
+            <p>
+                - Move your ship using the Left (←) and Right (→) arrow keys.<br>
+                - Press <strong>Space</strong> to shoot bullets at the aliens.<br>
+                - Press <strong>P</strong> to open the pause menu.<br>
+                - Press <strong>Enter</strong> to continue the game.<br>
+                - Restart the game by pressing the restart button.<br>
+                - Destroy all the aliens and survive 60 seconds!<br>
+            </p>
+        </div>
+    </div>
+
+    <!-- Pause Menu Overlay -->
+    <div id="pauseMenu">
+        <h2>Pause Menu</h2>
+        <button id="continueButton">Continue</button>
+    </div>
+
+    <script src="game.js"></script>
+
+    <script>
+        // Modal handling
+        const modal = document.getElementById("howToPlayModal");
+        const closeModal = document.getElementById("closeModal");
+
+        window.onload = function() {
+            modal.style.display = "block";
+        };
+
+        closeModal.addEventListener("click", function() {
+            modal.style.display = "none";
+        });
+
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+
+        document.getElementById("startButton").addEventListener("click", function() {
+            this.style.display = "none";  // Hide the button
+            document.getElementById("board").style.display = "block";  // Show the canvas
+            startGame();  // Start the game
+        });
+
+        // Restart the game by reloading the page
+        document.getElementById("restartButton").addEventListener("click", function () {
+            location.reload(); // Reload the page to restart the game
+        });
+
+        // Resume game when pressing "Continue"
+        document.getElementById("continueButton").addEventListener("click", function() {
+            paused = false; // Unpause the game
+        });
+    </script>
 </body>
 </html>
+
