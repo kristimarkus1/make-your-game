@@ -77,10 +77,11 @@ window.onload = function() {
 
 function updateTimer() {
   if (!paused && !gameOver) {
-    timeLeft--;
-    elapsedTime++;
+    timeLeft--; // Decrement time for Countdown Clock
+    elapsedTime++; // Increment time for Timer
 
     if (timeLeft <= 0 && !gameOver) {
+      // Timer runs out
       gameOver = true;
       context.clearRect(0, 0, board.width, board.height); // Clear board
       context.fillStyle = "green";
@@ -274,4 +275,24 @@ function createAliens() {
 
 function shoot(e) {
   if (gameOver) {
-    return
+    return;
+  }
+
+  if (e.code == "Space") {
+    let bullet = {
+      x : ship.x + shipWidth * 15/32,
+      y : ship.y,
+      width : tileSize / 8,
+      height : tileSize / 2,
+      used : false
+    }
+    bulletArray.push(bullet);
+  }
+}
+
+function detectCollision(a, b) {
+  return a.x < b.x + b.width &&
+          a.x + a.width > b.x &&
+          a.y < b.y + b.height &&
+          a.y + a.height > b.y;
+}
