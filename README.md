@@ -35,4 +35,5 @@ Welcome to **Alien Invaders**, a simple yet exciting arcade-style game where you
 ## Installation
 
 1. Download the game files or clone this repository.
+2. Open index.html in you browser and enjoy the game!
 
