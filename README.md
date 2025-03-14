@@ -2,6 +2,8 @@
 
 Welcome to **Space Invaders**, a simple yet exciting arcade-style game where you defend your ship from alien invaders! Test your skills, score points, and survive as long as you can.
 
+Hosted on github: https://kristimarkus1.github.io/ 
+
 ## How to Play
 
 1. **Open the Game:**
