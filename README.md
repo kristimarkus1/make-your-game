@@ -1,6 +1,6 @@
 # Space Invaders Game
 
-Welcome to **Alien Invaders**, a simple yet exciting arcade-style game where you defend your ship from alien invaders! Test your skills, score points, and survive as long as you can.
+Welcome to **Space Invaders**, a simple yet exciting arcade-style game where you defend your ship from alien invaders! Test your skills, score points, and survive as long as you can.
 
 ## How to Play
 
